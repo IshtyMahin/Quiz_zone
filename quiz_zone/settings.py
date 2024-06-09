@@ -30,6 +30,16 @@ SECRET_KEY = 'django-insecure-zsrr@mil4ubyf$5z*!lav7b-sf-k0+g7v7(hcvdtn@=ypnd77o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:5501",
+    "http://localhost:5501",
+    'https://mindd-test.netlify.app',
+]
+
+ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 
@@ -180,18 +190,6 @@ SIMPLE_JWT = {
 
 PASSWORD_RESET_TIMEOUT =900 # 900s = 15 minutes
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://127.0.0.1:5501",
-    "http://localhost:5501",
-    'https://mindd-test.netlify.app',
-]
-
-ALLOWED_HOSTS = ['*']
 
 
-
-
-ALLOWED_HOSTS = ['https://quiz-zone-g1pi.onrender.com/', 'https://mindd-test.netlify.app',"http://127.0.0.1:5501","http://127.0.0.1:3000",]
 
