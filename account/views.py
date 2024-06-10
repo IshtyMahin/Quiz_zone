@@ -64,7 +64,7 @@ class UserLoginView(APIView):
                token = get_tokens_for_user(user)
                return Response({'token': token, 'msg': 'Successfully Login'}, status=status.HTTP_200_OK)
             else:
-                return Response({'erros': {'non_field_errors': ['Email or Password not valid']}}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'errors': {'non_field_errors': ['Email or Password not valid']}}, status=status.HTTP_400_BAD_REQUEST)
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
