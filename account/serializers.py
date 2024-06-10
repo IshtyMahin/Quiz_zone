@@ -5,6 +5,7 @@ from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from .models  import ContactMessage
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
@@ -120,3 +121,8 @@ class UserPasswordResetSerializer(serializers.Serializer):
              raise serializers.ValidationError('Token is not Valid or Expired')
     
     
+
+class ContactMessageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContactMessage
+        fields = ['name', 'email', 'message']

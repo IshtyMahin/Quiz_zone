@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserProfileSerializer, UserChangePasswordSerializer, SendPasswordResetSerializer, UserPasswordResetSerializer
+from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserProfileSerializer, UserChangePasswordSerializer, SendPasswordResetSerializer, UserPasswordResetSerializer,ContactMessageSerializer
 from .models import User
 from django.contrib.auth import authenticate
 from .renders import UserRenderer
@@ -13,6 +13,22 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
+
+from django.core.mail import send_mail
+
+class ContactView(APIView):
+    def post(self, request, format=None):
+        serializer = ContactMessageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            subject = 'New Contact Message'
+            message = f'Name: {serializer.data["name"]}\nEmail: {serializer.data["email"]}\nMessage: {serializer.data["message"]}'
+            from_email = serializer.data["email"]
+            to_email = ['ishtiaq119@gmail.com']
+            send_mail(subject, message, from_email, to_email, fail_silently=True)
+            return Response({'message': 'Your message has been received. We will get back to you soon.'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)
 
@@ -96,3 +112,5 @@ class UserPasswordResetView(APIView):
         if serializer.is_valid(raise_exception=True):
             return Response({'msg': 'Password reset successfully'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+

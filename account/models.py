@@ -66,3 +66,12 @@ class User(AbstractBaseUser):
     def is_staff(self):
         "Is the user a member of staff?"
         return self.is_admin
+
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    message = models.TextField()
+
+    def __str__(self):
+        return self.name
