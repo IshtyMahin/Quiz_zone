@@ -79,7 +79,7 @@ class SendPasswordResetSerializer(serializers.Serializer):
         uid = urlsafe_base64_encode(force_bytes(user.id))
         token = PasswordResetTokenGenerator().make_token(user)
         
-        link = f'http://localhost:3000/api/user/reset/{uid}/{token}'
+        link = f'https://mindd-test.netlify.app/reset_pass_page.html?uid={uid}&token={token}'
         print("Password reset link:", link)
         email_subject = "Request for reset password"
         email_body = render_to_string("resetPassword.html", {"confirm_link": link})
